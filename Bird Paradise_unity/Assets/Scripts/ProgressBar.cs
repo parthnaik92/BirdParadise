@@ -18,9 +18,13 @@ public class ProgressBar : MonoBehaviour {
 	}
 
 	// call this function every time a button press happens
-	void makingProgress(float score)
+	void makingProgressP1(float score)
 	{
 		progress1 += score / 40f;
+	}
+
+	void makingProgressP2(float score)
+	{
 		progress2 += score / 40f;
 	}
 
