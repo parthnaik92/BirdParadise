@@ -13,8 +13,8 @@ public class GetInputFromUser : MonoBehaviour {
     public String temp;
     int inputArrayIndex1 = 0;
     int inputArrayIndex2 = 0;
-    int p1Score = 0;
-    int p2Score = 0;
+    float p1Score = 0;
+    float p2Score = 0;
 
     //Fuction to detect the key pressed by player
     public void detectPressedKey()
@@ -66,7 +66,7 @@ public class GetInputFromUser : MonoBehaviour {
                 inputArrayIndex1++;
                 if (inputArrayIndex1 == incomingArray.Length)
                 {
-                    calculateTotalScore(playerName[0], p1Score);
+                    //calculateTotalScore(playerName[0], p1Score);
                 }
             }
             else
@@ -75,7 +75,7 @@ public class GetInputFromUser : MonoBehaviour {
                 inputArrayIndex1++;
                 if (inputArrayIndex1 == incomingArray.Length)
                 {
-                    calculateTotalScore(playerName[0], p1Score);
+                    //calculateTotalScore(playerName[0], p1Score);
                 }
             }
         }
@@ -84,11 +84,11 @@ public class GetInputFromUser : MonoBehaviour {
             if (tempString == incomingArray[index])
             {
                 Debug.Log("P2 got the key right");
-                p2Score++;
+
                 inputArrayIndex2++;
                 if(inputArrayIndex2 == incomingArray.Length)
                 {
-                    calculateTotalScore(playerName[0], p2Score);
+                    //calculateTotalScore(playerName[0], p2Score);
                 }
             }
             else
@@ -97,28 +97,16 @@ public class GetInputFromUser : MonoBehaviour {
                 inputArrayIndex2++;
                 if (inputArrayIndex2 == incomingArray.Length)
                 {
-                    calculateTotalScore(playerName[0], p2Score);
+                    //calculateTotalScore(playerName[0], p2Score);
                 }
             }
         }
-        //condition to compare the pressed key with randomely generated keys on the screen
     }
 
-    int calculateTotalScore(String player, int score)
+    /*float calculateTotalScore(String player, float score)
     {
         Debug.Log("The Final Score for player " + player + " is " + score);
         return score;
-    }
-
-    /*void convertStringToKeys(String[] myArray)
-    {
-        for(int j = 0; j < myArray.Length; j++)
-        {
-                KeyCode thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), myArray[j]);
-                Debug.Log("The Value is " + thisKeyCode);
-                RandomArrayKeycode[j] = thisKeyCode;
-        }
-
     }*/
 
     void convertKeysToString(KeyCode keyCode)
