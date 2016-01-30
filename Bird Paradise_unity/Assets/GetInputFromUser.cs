@@ -5,8 +5,16 @@ using System.Collections.Generic;
 
 public class GetInputFromUser : MonoBehaviour {
 
-    public String[] player1keys = {"Q", "W", "E", "R", "A", "S", "D", "F", "Z", "X", "C", "V"};
-    public String[] player2keys = {"Y", "U", "I", "O", "P", "H", "J", "K", "L", "B", "N", "M"};
+    public String[] player1keys = { "Q", "W", "E", "R", "A", "S", "D", "F", "Z", "X", "C", "V" };
+    public String[] player2keys = { "Y", "U", "I", "O", "P", "H", "J", "K", "L", "B", "N", "M" };
+    public String[] thePlayer = new String[1];
+    public String[] RandomArray1 = new String[3] { "A", "C", "D" };
+    public String[] RandomArray2 = new String[3] { "K", "N", "U" };
+    public String temp;
+    int inputArrayIndex1 = 0;
+    int inputArrayIndex2 = 0;
+    int p1Score = 0;
+    int p2Score = 0;
 
     //Fuction to detect the key pressed by player
     public void detectPressedKey()
@@ -16,38 +24,106 @@ public class GetInputFromUser : MonoBehaviour {
             if (Input.GetKeyDown(keyCode))
             {
                 Debug.Log("The key was " + keyCode);
-                compareKeysWithKeySpace(keyCode);
+                getPlayerName(keyCode);
             }
         }
     }
 
     //Function to compare the pressed key with both the KeySpaces to determine which player pressed the key
-    void compareKeysWithKeySpace(KeyCode kCode)
+    void getPlayerName(KeyCode kCode)
     {
         for (int i = 0; i < player1keys.Length; i++)
         {
             if (kCode.ToString() == player1keys[i])
             {
-                Debug.Log("Player One has pressed something");
-                compareKeysWithDisplayedKeys(kCode);
+                thePlayer[0] = "One";
+                Debug.Log("It was Player " + thePlayer[0]);
+                convertKeysToString(kCode);
+                compareKeysWithDisplayedKeys(thePlayer, temp, RandomArray1, inputArrayIndex1);
             }
             else if (kCode.ToString() == player2keys[i])
             {
-                Debug.Log("Player Two has pressed something");
-                compareKeysWithDisplayedKeys(kCode);
+                thePlayer[0] = "Two";
+                Debug.Log("It was Player " + thePlayer[0]);
+                convertKeysToString(kCode);
+                compareKeysWithDisplayedKeys(thePlayer, temp, RandomArray2, inputArrayIndex2);
+            }
+            else
+            {
+
             }
         }
     }
 
-    void compareKeysWithDisplayedKeys(KeyCode kCode1)
+    void compareKeysWithDisplayedKeys(String[] playerName, String tempString, String[] incomingArray, int index)
     {
+        if(playerName[0] == "One")
+        {
+            if(tempString == incomingArray[index])
+            {
+                Debug.Log("P1 got the key right");
+                p1Score++;
+                inputArrayIndex1++;
+                if (inputArrayIndex1 == incomingArray.Length)
+                {
+                    calculateTotalScore(playerName[0], p1Score);
+                }
+            }
+            else
+            {
+                Debug.Log("P1 sucks");
+                inputArrayIndex1++;
+                if (inputArrayIndex1 == incomingArray.Length)
+                {
+                    calculateTotalScore(playerName[0], p1Score);
+                }
+            }
+        }
+        else if(playerName[0] == "Two")
+        {
+            if (tempString == incomingArray[index])
+            {
+                Debug.Log("P2 got the key right");
+                p2Score++;
+                inputArrayIndex2++;
+                if(inputArrayIndex2 == incomingArray.Length)
+                {
+                    calculateTotalScore(playerName[0], p2Score);
+                }
+            }
+            else
+            {
+                Debug.Log("P2 sucks");
+                inputArrayIndex2++;
+                if (inputArrayIndex2 == incomingArray.Length)
+                {
+                    calculateTotalScore(playerName[0], p2Score);
+                }
+            }
+        }
         //condition to compare the pressed key with randomely generated keys on the screen
-        sendDataToLoveBar();
     }
 
-    void sendDataToLoveBar()
+    int calculateTotalScore(String player, int score)
     {
+        Debug.Log("The Final Score for player " + player + " is " + score);
+        return score;
+    }
 
+    /*void convertStringToKeys(String[] myArray)
+    {
+        for(int j = 0; j < myArray.Length; j++)
+        {
+                KeyCode thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), myArray[j]);
+                Debug.Log("The Value is " + thisKeyCode);
+                RandomArrayKeycode[j] = thisKeyCode;
+        }
+
+    }*/
+
+    void convertKeysToString(KeyCode keyCode)
+    {
+        temp = keyCode.ToString();
     }
 
 	// Use this for initialization
